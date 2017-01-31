@@ -111,7 +111,7 @@ class Builder(object):
             print "getting git config"
             self.gitConfig = GetGitHubConfig()
         except Exception as e:
-            print "failed"
+            print "failed:", type(e)
             msg = (
                 "WARNING: To change version or release to GitHub, you must:\n"
                 "    $ git config --global github.user <your github username>\n"

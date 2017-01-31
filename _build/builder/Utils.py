@@ -126,10 +126,12 @@ def GetGitHubConfig():
     from agithub.GitHub import GitHub
     # read .gitconfig
     cfg = expanduser('~\.gitconfig')
+    print "read git config from", cfg
     with open(cfg, "rt") as f:
         cfg = f.readlines()
 
     # try to to read github section from .gitconfig
+    print "parse .gitconfig"
     idx = cfg.index("[github]\n")
     gitcfg = {}
     for i in range(idx + 1, len(cfg)):
