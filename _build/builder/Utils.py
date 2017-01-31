@@ -126,12 +126,10 @@ def GetGitHubConfig():
     from agithub.GitHub import GitHub
     # read .gitconfig
     cfg = expanduser('~\.gitconfig')
-    print "read git config from", cfg
     with open(cfg, "rt") as f:
         cfg = f.readlines()
 
     # try to to read github section from .gitconfig
-    print "parse .gitconfig"
     idx = cfg.index("[github]\n")
     gitcfg = {}
     for i in range(idx + 1, len(cfg)):
@@ -143,16 +141,8 @@ def GetGitHubConfig():
         gitcfg.update({key.strip(): val.strip()})
 
     # no entry for 'token' and/or 'user' found in .gitconfig
-    print "------------ ENV ------------------"
-    print os.environ
-    print "-----------------------------------"
-    print "GitConfig:\n", gitcfg
-    print "-----------------------------------"
-    if "token" not in gitcfg or "user" not in gitcfg or not gitcfg["token"]:
-        if "GITHUB_TOKEN" in os.environ:
-            gitcfg["token"] = os.environ["GITHUB_TOKEN"]
-        else:
-            raise KeyError
+    if "token" not in gitcfg or "user" not in gitcfg:
+        raise KeyError
 
     # try to get local active branch
     try:
