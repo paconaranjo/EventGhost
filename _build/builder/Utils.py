@@ -141,14 +141,16 @@ def GetGitHubConfig():
         gitcfg.update({key.strip(): val.strip()})
 
     # no entry for 'token' and/or 'user' found in .gitconfig
-    if "token" not in gitcfg or "user" not in gitcfg:
-        print os.environ
+    print "------------ ENV ------------------"
+    print os.environ
+    print "-----------------------------------"
+    print "GitConfig:\n", gitcfg
+    print "-----------------------------------"
+    if "token" not in gitcfg or "user" not in gitcfg or not gitcfg["token"]:
         if "GITHUB_TOKEN" in os.environ:
             gitcfg["token"] = os.environ["GITHUB_TOKEN"]
         else:
             raise KeyError
-    else:
-        print "GitConfig:\n", gitcfg
 
     # try to get local active branch
     try:
