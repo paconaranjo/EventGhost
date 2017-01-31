@@ -108,8 +108,10 @@ class Builder(object):
             sys.exit(1)
 
         try:
+            print "getting git config"
             self.gitConfig = GetGitHubConfig()
         except Exception as e:
+            print "failed"
             msg = (
                 "WARNING: To change version or release to GitHub, you must:\n"
                 "    $ git config --global github.user <your github username>\n"
@@ -134,6 +136,8 @@ class Builder(object):
                 "token": "",
                 "user": "EventGhost",
             }
+        else:
+            print repr(self.gitConfig)
 
         self.appVersion = None
         self.appVersionInfo = None
